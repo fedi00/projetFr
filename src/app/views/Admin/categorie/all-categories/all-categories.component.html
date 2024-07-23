@@ -1,0 +1,90 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Categories</h6>
+        </div>
+          
+        <div class="card-body">
+            
+          <button routerLink="/admin/addcategorie" style="float: right;" class="add-user-button"> <i class="fas fa-plus" style="margin-right: 10px;"></i>Ajout Categorie</button>
+          <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                   
+                    <tbody >
+                        <tr *ngFor="let item of  dataCategorie">
+                          <td>{{ item.nom }}</td>
+                          <td >{{ item.description }}</td>
+
+
+
+                          <td> 
+                            <button class="modif"  (click)="getcategorie(item.nom, item.description,item.id)" data-toggle="modal" data-target="#updatecategorieModal" >Modifier</button>
+                            <button class="btn btn-danger delete-btn" (click)="deleteCategorie(item.id)">Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                      
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updatecategorieModal" tabindex="-1" aria-labelledby="updatecategorieModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updatecategorieModal">Modifier Categorie</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form   #f="ngForm"  (ngSubmit)="updatenewCategorie(f)">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Nom</label>
+                    <input type="text" class="form-control" placeholder="Nom" required name="nom" #Nom="ngModel" ngModel minlength="2" maxlength="50" [(ngModel)]="NewDataCategorie.nom">
+                  </div>
+                  <div class="alert alert-danger" *ngIf="Nom.errors?.['required'] && Nom.touched">
+                    Nom is required
+                  </div>
+                  <div class="alert alert-danger" *ngIf="Nom.errors?.['minlength'] && Nom.touched">
+                    Nom must be minimum 2 characters
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Description</label>
+                    <input type="text" class="form-control" placeholder="Description" required name="description" #Description="ngModel" minlength="5" maxlength="500" ngModel [(ngModel)]="NewDataCategorie.description">
+                  </div>
+                  <div class="alert alert-danger" *ngIf="Description.errors?.['required'] && Description.touched">
+                    Descriptionis required
+                  </div>
+                  <div class="alert alert-danger" *ngIf="Description.errors?.['minlength'] && Description.touched">
+                    Description must be minimum 2 characters
+                  </div>
+              
+                <div class="alert alert-success" *ngIf="messageSuccess">
+                    {{messageSuccess}}
+                </div>
+
+                <button type="submit" class="btn btn-primary" >Modifier Categorie </button>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+

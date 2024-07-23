@@ -1,0 +1,65 @@
+<div class="container-fluid form-container">
+  <form #f="ngForm" (ngSubmit)="add(f)">
+    <!-- Nom validation start here -->
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input type="text" class="form-control" id="nom" placeholder="Nom" required name="nom" #Nom="ngModel" ngModel>
+    </div>
+    <div class="alert alert-danger" *ngIf="Nom.errors?.['required'] && Nom.touched">
+      Le nom est obligatoire
+    </div>
+    <!-- Nom validation end here -->
+
+    <!-- Description validation start here -->
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" class="form-control" id="description" placeholder="Description" required name="description" #Description="ngModel" ngModel>
+    </div>
+    <div class="alert alert-danger" *ngIf="Description.errors?.['required'] && Description.touched">
+      La description est obligatoire
+    </div>
+    <!-- Description validation end here -->
+
+    <!-- Prix validation start here -->
+    <div class="form-group">
+      <label for="prix">Prix</label>
+      <input type="number" class="form-control" id="prix" placeholder="Prix" required name="prix" #Prix="ngModel" ngModel>
+    </div>
+    <div class="alert alert-danger" *ngIf="Prix.errors?.['required'] && Prix.touched">
+      Le prix est obligatoire
+    </div>
+    <!-- Prix validation end here -->
+
+    <!-- Stock validation start here -->
+    <div class="form-group">
+      <label for="stock">Stock</label>
+      <input type="number" class="form-control" id="stock" placeholder="Stock" required name="stock" #Stock="ngModel" ngModel>
+    </div>
+    <div class="alert alert-danger" *ngIf="Stock.errors?.['required'] && Stock.touched">
+      Le stock est obligatoire
+    </div>
+    <!-- Stock validation end here -->
+
+    <!-- Catégorie validation start here -->
+    <div class="form-group">
+      <label for="category">Catégorie</label>
+      <select class="form-control" id="category" required name="category" #Category="ngModel" ngModel>
+        <option *ngFor="let category of dataCategorie" [value]="category.id">{{ category.nom }}</option>
+      </select>
+    </div>
+    <div class="alert alert-danger" *ngIf="Category.errors?.['required'] && Category.touched">
+      La catégorie est obligatoire
+    </div>
+    <!-- Catégorie validation end here -->
+
+    <!-- Image validation start here -->
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" class="form-control" id="image" (change)="onFileSelected($event)" required name="image">
+    </div>
+    <!-- Note: Pas besoin d'afficher une alerte pour l'image car la validation est gérée différemment. -->
+    <!-- Image validation end here -->
+
+    <button class="btn btn-primary" [disabled]="f.invalid">Ajouter Produit</button>
+  </form>
+</div>

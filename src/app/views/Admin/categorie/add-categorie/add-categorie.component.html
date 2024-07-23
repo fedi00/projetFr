@@ -1,0 +1,37 @@
+<div class="container-fluid form-container">
+    <form #f="ngForm" (ngSubmit)="add(f)">
+      <!-- Nom validation start here -->
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Nom</label>
+        <input type="text" class="form-control" placeholder="Nom" required name="nom" #Nom="ngModel" ngModel minlength="2" maxlength="50">
+      </div>
+      <div class="alert alert-danger" *ngIf="Nom.errors?.['required'] && Nom.touched">
+        Nom is required
+      </div>
+      <div class="alert alert-danger" *ngIf="Nom.errors?.['minlength'] && Nom.touched">
+        Nom must be minimum 2 characters
+      </div>
+      <!-- Nom validation end here -->
+  
+      <!-- description validation start here -->
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Description</label>
+        <input type="text" class="form-control" placeholder="Description" required name="description" #Description="ngModel" minlength="5" maxlength="500" ngModel>
+      </div>
+      <div class="alert alert-danger" *ngIf="Description.errors?.['required'] && Description.touched">
+        Descriptionis required
+      </div>
+      <div class="alert alert-danger" *ngIf="Description.errors?.['minlength'] && Description.touched">
+        Description must be minimum 2 characters
+      </div>
+      <!-- Description validation end here -->
+  
+      <button class="btn btn-primary" [disabled]="f.invalid">Ajouter  </button>
+    </form>
+  
+  
+  </div>
+  
+  
+  
+

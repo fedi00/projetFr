@@ -1,0 +1,103 @@
+.add-user-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color:#f2f2f2;
+  }
+  .modif {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    color: #f2f2f2;
+    background-color: #007BFF;
+    margin-right: 20px;
+    margin-left: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  /* Style pour les cellules du corps */
+  td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  /* Style pour les lignes impaires (alternance des couleurs) */
+  tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Style pour survoler les lignes */
+  tr:hover {
+    background-color: #f2f2f2;
+  }
+  .container {
+    display: flex; /* Utilisation de flexbox pour disposer les éléments en ligne */
+}
+
+
+
+.content {
+    flex-grow: 1; /* Le contenu prendra tout l'espace disponible restant */
+    padding: 20px; /* Ajouter un espacement autour du contenu */
+}
+.container {
+    display: flex;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+  }
+  
+  .custom-table th, .custom-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .custom-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .custom-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .custom-table tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+a.bars{
+  margin-right: 1150px;
+  font-size: 25px;
+}
+.delete-btn{
+  margin-right: -140px;
+  color: #f2f2f2;
+}

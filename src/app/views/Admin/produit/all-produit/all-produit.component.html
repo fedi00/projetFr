@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      </nav>
+    </div>
+    <div class="col-md-9">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Produits</h6>
+        </div>
+        <div class="card-body">
+          <button routerLink="/admin/addproduit" style="float: right;" class="add-user-button"> <i class="fas fa-plus" style="margin-right: 10px;"></i>Ajout Commande</button>
+          <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Description</th>
+                  <th>Prix</th>
+                  <th>Stock</th>
+                  <th>Catégorie</th>
+                  <th>Image</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataProduit">
+                  <td>{{ item.nom }}</td>
+                  <td>{{ item.description }}</td>
+                  <td>{{ item.prix }}</td>
+                  <td>{{ item.stock }}</td>
+                  <td>{{ item.category?.nom }}</td>
+                  <td>
+                    <img [src]="'http://localhost:8090/images/' + item.image" alt="Image du produit" style="max-width: 100px; max-height: 100px;" />
+                  </td>
+                  <td>
+                    <button class="modif" (click)="getproduit(item.nom, item.description, item.prix, item.stock, item.category?.nom, item.id)" data-toggle="modal" data-target="#updateproduitModal">Modifier</button>
+                    <button class="btn btn-danger" (click)="deleteProduct(item.id)">Supprimer</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="updateproduitModal" tabindex="-1" aria-labelledby="updateproduitModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateproduitModal">Modifier Produit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="updatenewProduit(f)">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" placeholder="Nom" required name="nom" #Nom="ngModel" ngModel [(ngModel)]="NewDataProduit.nom">
+          </div>
+          <div class="alert alert-danger" *ngIf="Nom.errors?.['required'] && Nom.touched">
+            Le nom est obligatoire
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Description" required name="description" #Description="ngModel" ngModel [(ngModel)]="NewDataProduit.description">
+          </div>
+          <div class="alert alert-danger" *ngIf="Description.errors?.['required'] && Description.touched">
+            La description est obligatoire
+          </div>
+
+          <div class="form-group">
+            <label for="prix">Prix</label>
+            <input type="text" class="form-control" id="prix" placeholder="Prix" required name="prix" #Prix="ngModel" ngModel [(ngModel)]="NewDataProduit.prix">
+          </div>
+          <div class="alert alert-danger" *ngIf="Prix.errors?.['required'] && Prix.touched">
+            Le prix est obligatoire
+          </div>
+
+          <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number" class="form-control" id="stock" placeholder="Stock" required name="stock" #Stock="ngModel" ngModel [(ngModel)]="NewDataProduit.stock">
+          </div>
+          <div class="alert alert-danger" *ngIf="Stock.errors?.['required'] && Stock.touched">
+            Le stock est obligatoire
+          </div>
+
+          <div class="form-group">
+            <label for="category">Catégorie</label>
+            <select class="form-control" id="category" required name="categorieId" #Category="ngModel" ngModel [(ngModel)]="NewDataProduit.category">
+              <option *ngFor="let category of dataCategorie" [value]="category.id">{{ category.nom }}</option>
+            </select>
+          </div>
+          
+          <div class="alert alert-danger" *ngIf="Category.errors?.['required'] && Category.touched">
+            La catégorie est obligatoire
+          </div>
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control" id="image" (change)="onFileSelected($event)" required name="image">
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+        <div *ngIf="messageSuccess" class="alert alert-success mt-3">
+          {{ messageSuccess }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

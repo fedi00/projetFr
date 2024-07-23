@@ -1,0 +1,137 @@
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Clients</h6>
+        </div>
+          
+        <div class="card-body">
+            
+          <button routerLink="/admin/addclient" style="float: right;" class="add-user-button"> <i class="fas fa-plus" style="margin-right: 10px;"></i>Ajout Commande</button>
+          <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                          <th>Id</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Email</th>
+                            <th>Adresse</th>
+                            <th>Telephone</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                   
+                    <tbody >
+                        <tr *ngFor="let item of dataClient">
+                          <td>{{ item.id }}</td>
+                          <td>{{ item.nom }}</td>
+                          <td>{{ item.prenom }}</td>
+                          <td>{{ item.email}}</td>
+                          <td>{{ item.adresse }}</td>
+                          <td>{{ item.telephone }}</td>
+                          <td>
+                            
+                            <button class="modif" (click)="getclient(item.nom, item.prenom, item.email, item.adresse, item.telephone, item.id)" data-toggle="modal" data-target="#updateClientModal">Modifier</button>
+
+                            <button class="btn btn-danger delete-btn" (click)="deleteClient(item.id)">Supprimer</button>
+
+                            
+
+                            
+                          </td>
+                        </tr>
+                      </tbody>
+                      
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="updateClientModal" tabindex="-1" aria-labelledby="updateClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateClientModalLabel">Modifier Client</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm"  (ngSubmit)="updatenewClient(f)">
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Nom</label>
+             
+              <input type="text" class="form-control" placeholder="Nom" required name="nom" #firstname="ngModel" ngModel minlength="3" maxlength="20" [(ngModel)]="NewDataClient.nom">
+            </div>
+            <div class="alert alert-danger" *ngIf="firstname.errors?.['required'] && firstname.touched">
+              FirstName is required
+            </div>
+            <div class="alert alert-danger" *ngIf="firstname.errors?.['minlength'] && firstname.touched">
+              FirstName must be minimum 2 characters
+            </div>
+            
+        
+            
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Prenom</label>
+              <input type="text" class="form-control" placeholder="Prenom" required name="prenom" #lastname="ngModel" ngModel minlength="3" maxlength="20"  [(ngModel)]="NewDataClient.prenom">
+            </div>
+            <div class="alert alert-danger" *ngIf="lastname.errors?.['required'] && lastname.touched">
+              lastname is required
+            </div>
+            <div class="alert alert-danger" *ngIf="lastname.errors?.['minlength'] && lastname.touched">
+              lastname must be minimum 2 characters
+            </div>
+            
+        
+            
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Email</label>
+              <input type="email" class="form-control" placeholder="email" email required name="email" #email="ngModel" ngModel  [(ngModel)]="NewDataClient.email">
+              
+            </div>
+            <div class="alert alert-danger" *ngIf="email.errors?.['required']  && email.touched">
+              email is required
+            </div>
+            <div class="alert alert-danger" *ngIf="email.errors?.['email'] && email.touched">
+              the input must be email not string
+            </div>
+            
+        
+            
+              <div class="form-group">
+              <label for="exampleFormControlInput1">Adresse</label>
+              <input type="text" class="form-control" placeholder="Adresse" required name="adresse" #Adresse="ngModel" ngModel  [(ngModel)]="NewDataClient.adresse">
+              </div>
+              <div class="alert alert-danger" *ngIf="Adresse.errors?.['required'] && Adresse.touched">
+               L'adresse est obligatoire
+              </div>
+              
+      
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Telephone</label>
+              <input type="text" class="form-control" placeholder="Telephone" required name="telephone" #phone="ngModel" ngModel [(ngModel)]="NewDataClient.telephone">
+            </div>
+            <div class="alert alert-danger" *ngIf="phone.errors?.['required'] && phone.touched">
+              telephone is required
+            </div>
+           
+            <div class="alert alert-success" *ngIf="messageSuccess">
+                {{messageSuccess}}
+            </div>
+            <button class="btn btn-primary" [disabled]="f.invalid">Modifier Client</button>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+ 
+
+
+</div>
+
+

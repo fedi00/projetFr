@@ -1,0 +1,29 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.container-fluid {
+    height: 100vh; /* Occupe toute la hauteur de la fenêtre */
+}
+
+.row {
+    flex: 1;
+    display: flex;
+    height: 100%; /* Assure que la rangée prend toute la hauteur */
+}
+
+#sidebarMenu {
+    flex: 0 0 250px; /* largeur de la sidebar */
+    background-color: #f8f9fa; /* couleur de fond pour la sidebar */
+}
+
+main {
+    flex: 1;
+    background-color: #fff; /* couleur de fond pour le contenu principal */
+    padding: 20px; /* marge intérieure pour le contenu principal */
+    overflow: auto; /* permet de défiler si le contenu est plus grand que la hauteur */
+}
+.custom-navbar-height {
+    height: 70px; /* Ajustez la hauteur selon vos préférences */
+}

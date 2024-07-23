@@ -1,0 +1,30 @@
+<div class="container-fluid form-container">
+    <form #f="ngForm" (ngSubmit)="add(f)">
+      <!-- Total validation start here -->
+      <div class="form-group">
+        <label for="total">Total</label>
+        <input type="number" class="form-control" id="total" placeholder="Total" required name="total" #total="ngModel" ngModel min="0">
+      </div>
+      <div class="alert alert-danger" *ngIf="total.errors?.['required'] && total.touched">
+        Total is required
+      </div>
+      <div class="alert alert-danger" *ngIf="total.errors?.['min'] && total.touched">
+        Total must be a positive number
+      </div>
+      <!-- Total validation end here -->
+  
+      <!-- Panier ID validation start here -->
+      <div class="form-group">
+        <label for="panierId">ID du Panier</label>
+        <input type="text" class="form-control" id="panierId" placeholder="ID du Panier" required name="panierId" #panierId="ngModel" ngModel>
+      </div>
+      <div class="alert alert-danger" *ngIf="panierId.errors?.['required'] && panierId.touched">
+        ID du Panier is required
+      </div>
+      <!-- Panier ID validation end here -->
+  
+  
+      <button class="btn btn-primary" [disabled]="f.invalid">Ajouter Commande</button>
+    </form>
+  </div>
+  

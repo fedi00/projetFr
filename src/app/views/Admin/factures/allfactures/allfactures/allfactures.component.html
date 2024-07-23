@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Factures</h6>
+    </div>
+    
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Type de Paiement</th>
+              <th>Facilité de Paiement</th>
+              <th>Commande ID</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let facture of dataFactures">
+              <td>{{ facture.id }}</td>
+              <td>{{ facture.typePaiement }}</td>
+              <td>{{ facture.facilitePaiement }}</td>
+              <td>{{ facture.commande.id }}</td>
+              <td>{{ facture.totalAvecInteret }}</td>
+              <td>
+                <button class="modif" (click)="selectFacture(facture)" data-toggle="modal" data-target="#updateFactureModal">Modifier</button>
+                <button class="btn btn-danger" (click)="deleteFacture(facture.id)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour la modification des factures -->
+<div class="modal fade" id="updateFactureModal" tabindex="-1" aria-labelledby="updateFactureModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateFactureModalLabel">Modifier Facture</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="updateFacture(f)">
+          <div class="form-group">
+            <label for="typePaiement">Type de Paiement</label>
+            <select id="typePaiement" name="typePaiement" class="form-control" required [(ngModel)]="selectedFacture.typePaiement">
+              <option value="ESPECES">Cash</option>
+              <option value="CARTE">Card</option>
+              <option value="CHEQUE">Cheque</option>
+              <!-- Ajoutez d'autres options si nécessaire -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="facilitePaiement">Facilité de Paiement</label>
+            <select id="facilitePaiement" name="facilitePaiement" class="form-control" required [(ngModel)]="selectedFacture.facilitePaiement">
+              <option value="CONTANT">One Time</option>
+              <option value="TROIS_MOIS">Three Months</option>
+              <option value="SIX_MOIS">Six Months</option>
+              <option value="UN_AN">One Year</option>
+              <!-- Ajoutez d'autres options si nécessaire -->
+            </select>
+          </div>
+
+          <!-- Ajoutez d'autres champs si nécessaire -->
+          
+          <div class="alert alert-success" *ngIf="messageSuccess">
+            {{ messageSuccess }}
+          </div>
+
+          <button type="submit" class="btn btn-primary">Modifier Facture</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

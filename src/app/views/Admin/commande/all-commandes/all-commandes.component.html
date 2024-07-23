@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Commandes</h6>
+    </div>
+    
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Total</th>
+              <th>Date de Commande</th>
+              <th>Client</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let commande of dataCommandes">
+              <td>{{ commande.id }}</td>
+              <td>{{ commande.total }}</td>
+              <td>{{ commande.dateCommande | date:'yyyy-MM-dd HH:mm' }}</td>
+              <td>{{ commande.client?.id || 'Client inconnu' }}</td>
+              <td>
+                <button class="modif" (click)="selectCommande(commande)" data-toggle="modal" data-target="#updateCommandeModal">Modifier</button>
+                <button class="btn btn-danger delete-btn" (click)="deleteCommande(commande.id)">Supprimer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour la modification des commandes -->
+<div class="modal fade" id="updateCommandeModal" tabindex="-1" aria-labelledby="updateCommandeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateCommandeModalLabel">Modifier Commande</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="updateCommande(f)">
+          <div class="form-group">
+            <label for="clientId">ID du client</label>
+            <input type="text" class="form-control" id="clientId" name="clientId" placeholder="ID du Client" required [(ngModel)]="selectedCommande.client.id">
+          </div>
+          <div class="form-group">
+            <label for="total">Total</label>
+            <input type="number" class="form-control" id="total" name="total" placeholder="Total" required [(ngModel)]="selectedCommande.total">
+          </div>
+          
+          <div class="alert alert-success" *ngIf="messageSuccess">
+            {{ messageSuccess }}
+          </div>
+        
+          <button type="submit" class="btn btn-primary">Modifier Commande</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

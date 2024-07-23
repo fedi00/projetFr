@@ -1,0 +1,75 @@
+<div class="container-fluid form-container">
+    <form #f="ngForm" (ngSubmit)="add(f)">
+      
+      <!-- firstName validation start here -->
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Nom</label>
+       
+        <input type="text" class="form-control" placeholder="Nom" required name="nom" #firstname="ngModel" ngModel minlength="3" maxlength="20">
+      </div>
+      <div class="alert alert-danger" *ngIf="firstname.errors?.['required'] && firstname.touched">
+        FirstName is required
+      </div>
+      <div class="alert alert-danger" *ngIf="firstname.errors?.['minlength'] && firstname.touched">
+        FirstName must be minimum 2 characters
+      </div>
+      <!-- lastName validation end here -->
+  
+      <!-- lastName validation start here -->
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Prenom</label>
+        <input type="text" class="form-control" placeholder="Prenom" required name="prenom" #lastname="ngModel" minlength="3" maxlength="20" ngModel>
+      </div>
+      <div class="alert alert-danger" *ngIf="lastname.errors?.['required'] && lastname.touched">
+        lastname is required
+      </div>
+      <div class="alert alert-danger" *ngIf="lastname.errors?.['minlength'] && lastname.touched">
+        lastname must be minimum 2 characters
+      </div>
+      <!-- lastName validation end here -->
+  
+      <!-- Email validation start here -->
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Email</label>
+        <input type="email" class="form-control" placeholder="email" email required name="email" #email="ngModel" ngModel>
+        
+      </div>
+      <div class="alert alert-danger" *ngIf="email.errors?.['required']  && email.touched">
+        email is required
+      </div>
+      <div class="alert alert-danger" *ngIf="email.errors?.['email'] && email.touched">
+        the input must be email not string
+      </div>
+      <!-- Email validation end here -->
+  
+      <!-- adresse validation start here -->
+     
+        <div class="form-group">
+        <label for="exampleFormControlInput1">Adresse</label>
+        <input type="text" class="form-control" placeholder="Adresse" required name="adresse" #Adresse="ngModel" ngModel>
+        </div>
+        <div class="alert alert-danger" *ngIf="Adresse.errors?.['required'] && Adresse.touched">
+         L'adresse est obligatoire
+        </div>
+        <!-- Adresse validation end here -->
+
+  
+      <!-- Phone validation start here -->
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Telephone</label>
+        <input type="text" class="form-control" placeholder="Telephone" required name="telephone" #phone="ngModel" ngModel>
+      </div>
+      <div class="alert alert-danger" *ngIf="phone.errors?.['required'] && phone.touched">
+        telephone is required
+      </div>
+      <!-- Phone validation end here -->
+
+    
+      <button class="btn btn-primary" [disabled]="f.invalid">Add Client</button>
+    </form>
+  
+  
+  </div>
+  
+  
+  
